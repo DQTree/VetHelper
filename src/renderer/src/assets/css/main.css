@@ -1,0 +1,58 @@
+body {
+    height: fit-content;
+    background-color: rgb(180, 180, 180);
+    margin: 0;
+}
+body * {
+    font-family: 'Pixelated MS Sans Serif';
+}
+
+.cv-main-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.cv-main-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    background-color: white;
+
+}
+
+.cv-main-body {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.cv-main {
+    padding: 16px;
+}
+
+.cv-container {
+    border-color: black;
+    border: outset;
+    padding: 4px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    max-width: 384px;
+    margin: 12px;
+}
+
+.cv-button {
+    padding: 16px;
+}
+
+img {
+    max-width: 48px;
+    max-height: 48px;
+}
+
+button {
+    width: 96px;
+    height: 96px;
+}
