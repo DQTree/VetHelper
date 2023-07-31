@@ -1,4 +1,5 @@
 import { app, shell, BrowserWindow, ipcMain } from 'electron'
+import { Worker } from 'worker_threads'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/bonee.ico?asset'
@@ -9,6 +10,8 @@ const env = process.env.DEV_ENV
 
 const PouchDB = require('pouchdb')
 const db = new PouchDB('vetdb')
+
+let worker
 
 function createWindow() {
   // Create the browser window.
@@ -94,11 +97,14 @@ app.on('ready', () => {
 
   ipcMain.handle('fetchData', async () => {
     try {
-      const result = await db.allDocs({ include_docs: true }) // Fetch all documents
-      return result.rows.map((row) => row.doc) // Return an array of documents to the renderer process
+      // Fetch all documents
+      const result = await db.allDocs({ include_docs: true })
+      // Return an array of documents to the renderer process
+      return result.rows.map((row) => row.doc)
     } catch (error) {
       console.error('Error fetching data from the database:', error)
-      return null // Return null or an error indicator to the renderer process
+      // Return null or an error indicator to the renderer process
+      return null
     }
   })
 
@@ -106,13 +112,29 @@ app.on('ready', () => {
     try {
       // Perform the database operation to add the new entry
       const response = await db.put(data)
-      return response // Return the response to the renderer process
+      // Return the response to the renderer process
+      return response
     } catch (error) {
       console.error('Error adding entry to the database:', error)
-      return null // Return null or an error indicator to the renderer process
+      // Return null or an error indicator to the renderer process
+      return null
     }
   })
+
+  // Listen for messages from the worker thread
+  ipcMain.on('backupCompleted', (event, message) => {
+    console.log('Backup completed:', message)
+    // Handle backup completion if needed
+  })
+
+  // Create the worker thread when the app is ready
+  worker = new Worker('../vethelper/src/main/backupWorker.mjs')
 })
+
+function triggerBackup() {
+  // Send a message to the worker thread to initiate the backup
+  worker.postMessage('startBackup')
+}
 
 //  If development environment
 if (env === 'TRUE') {
