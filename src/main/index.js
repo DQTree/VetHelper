@@ -2,6 +2,7 @@ import { app, shell, BrowserWindow, ipcMain } from 'electron'
 import { Worker } from 'worker_threads'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
+import dbops from '../main/db'
 import icon from '../../resources/bonee.ico?asset'
 
 const path = require('path')
@@ -10,6 +11,7 @@ const env = process.env.DEV_ENV
 
 const PouchDB = require('pouchdb')
 const db = new PouchDB('vetdb')
+const dbaux = dbops(db)
 
 let worker
 
@@ -83,10 +85,7 @@ app.on('window-all-closed', () => {
 app.on('ready', () => {
   ipcMain.handle('exportDataToJSON', async () => {
     try {
-      // Fetch all documents from the PouchDB
-      const allDocs = await db.allDocs({ include_docs: true })
-      // Extract the data from each document
-      const data = allDocs.rows.map((row) => row.doc)
+      const data = await dbaux.backupdb()
       // Return the data to the renderer process
       return data
     } catch (error) {
@@ -126,6 +125,8 @@ app.on('ready', () => {
     console.log('Backup completed:', message)
     // Handle backup completion if needed
   })
+
+  dbaux.setupIndexesDb()
 
   // Create the worker thread when the app is ready
   worker = new Worker('../vethelper/src/main/backupWorker.mjs')
