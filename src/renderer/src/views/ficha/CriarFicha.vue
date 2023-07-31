@@ -7,8 +7,12 @@
     <button type="button" @click="handleExportDataToJSONClick">Export to JSON</button>
     <button type="button" @click="handleAddEntryClick">Add entry</button>
   </div>
+  <div class="cv-container">
+    <ButtonComponent link="/home" tit="home" bttnlabel="Home"></ButtonComponent>
+  </div>
 </template>
 <script>
+import ButtonComponent from '../../components/Button.vue'
 import * as dbhelper from '../../helper/dbhelper'
 //  Access the Electron API through the 'electron' object exposed by the preload script
 const { ipcRenderer } = window.electron
@@ -18,6 +22,9 @@ const { ipcRenderer } = window.electron
 const db = dbhelper.default(ipcRenderer)
 
 export default {
+  components: {
+    ButtonComponent
+  },
   methods: {
     async handleAddEntryClick() {
       const newEntry = {}

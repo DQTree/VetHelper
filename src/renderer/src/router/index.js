@@ -1,7 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/Main.vue'
 
-import AnimalFichaView from '../views/ficha/FichaAnimal.vue'
+import CriarFichaView from '../views/ficha/CriarFicha.vue'
+import CriarConsultaView from '../views/consulta/CriarConsulta.vue'
 
 import FichaPesquisaView from '../views/pesquisa/Ficha.vue'
 import ConsultaPesquisaView from '../views/pesquisa/Consulta.vue'
@@ -20,9 +21,7 @@ import ConfigurarView from '../views/misc/Configurar.vue'
 import CopiarView from '../views/misc/Copiar.vue'
 import AjudaView from '../views/misc/Ajuda.vue'
 
-import FichaView from '../views/FichaView.vue'
 import PesquisaView from '../views/PesquisaView.vue'
-import ConsultaView from '../views/ConsultaView.vue'
 import UtilitariosView from '../views/UtilitariosView.vue'
 
 const router = createRouter({
@@ -36,32 +35,14 @@ const router = createRouter({
       component: HomeView
     },
     {
-      path: '/ficha',
-      component: FichaView,
-      children: [
-        {
-          path: 'cao',
-          component: AnimalFichaView
-        },
-        {
-          path: 'gato',
-          component: AnimalFichaView
-        }
-      ]
+      path: '/criarficha',
+      name: 'criarficha',
+      component: CriarFichaView
     },
     {
-      path: '/consulta',
-      component: ConsultaView,
-      children: [
-        {
-          path: 'cao',
-          component: ConsultaView
-        },
-        {
-          path: 'gato',
-          component: ConsultaView
-        }
-      ]
+      path: '/criarconsulta',
+      name: 'criarconsulta',
+      component: CriarConsultaView
     },
     {
       path: '/pesquisa',
