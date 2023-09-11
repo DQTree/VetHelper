@@ -1,5 +1,4 @@
 <template>
-
+  <div>Cartas</div>
 </template>
-<script>
-</script>
+<script></script>

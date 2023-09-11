@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/Main.vue'
+import LayoutView from '../views/Layout.vue'
+import DailyView from '../views/Daily.vue'
 
 import CriarFichaView from '../views/ficha/CriarFicha.vue'
 import CriarConsultaView from '../views/consulta/CriarConsulta.vue'
@@ -21,99 +22,103 @@ import ConfigurarView from '../views/misc/Configurar.vue'
 import CopiarView from '../views/misc/Copiar.vue'
 import AjudaView from '../views/misc/Ajuda.vue'
 
-import PesquisaView from '../views/PesquisaView.vue'
-import UtilitariosView from '../views/UtilitariosView.vue'
-
 const router = createRouter({
   mode: 'history',
   history: createWebHistory(),
   routes: [
     {
-      path: '/home',
-      name: 'home',
-      alias: '/',
-      component: HomeView
+      path: '/',
+      redirect: '/home'
     },
     {
-      path: '/criarficha',
-      name: 'criarficha',
-      component: CriarFichaView
-    },
-    {
-      path: '/criarconsulta',
-      name: 'criarconsulta',
-      component: CriarConsultaView
-    },
-    {
-      path: '/pesquisa',
-      component: PesquisaView,
+      path: '/',
+      component: LayoutView,
       children: [
         {
-          path: 'ficha',
-          component: FichaPesquisaView
+          path: '/home',
+          name: 'home',
+          component: DailyView
         },
         {
-          path: 'consultas',
-          component: ConsultaPesquisaView
+          path: '/criarficha',
+          name: 'criarficha',
+          component: CriarFichaView
         },
         {
-          path: 'vacinas',
-          component: VacinasPesquisaView
+          path: '/criarconsulta',
+          name: 'criarconsulta',
+          component: CriarConsultaView
         },
         {
-          path: 'cirurgias',
-          component: CirurgiasPesquisaView
+          path: '/pesquisa',
+          children: [
+            {
+              path: 'ficha',
+              component: FichaPesquisaView
+            },
+            {
+              path: 'consultas',
+              component: ConsultaPesquisaView
+            },
+            {
+              path: 'vacinas',
+              component: VacinasPesquisaView
+            },
+            {
+              path: 'cirurgias',
+              component: CirurgiasPesquisaView
+            },
+            {
+              path: 'radiografias',
+              component: RadiografiasPesquisaView
+            }
+          ]
         },
         {
-          path: 'radiografias',
-          component: RadiografiasPesquisaView
+          path: '/utilitarios',
+          children: [
+            {
+              path: 'cartas',
+              component: CartasUtilsView
+            },
+            {
+              path: 'tabela',
+              component: TabelaUtilsView
+            },
+            {
+              path: 'stocks',
+              component: StocksUtilsView
+            },
+            {
+              path: 'medicacao',
+              component: MedicacaoUtilsView
+            },
+            {
+              path: 'despesas',
+              component: DespesasUtilsView
+            },
+            {
+              path: 'atlas',
+              component: AtlasUtilsView
+            }
+          ]
+        },
+        {
+          path: '/configurar',
+          name: 'configurar',
+          component: ConfigurarView
+        },
+        {
+          path: '/ajuda',
+          name: 'ajuda',
+          component: AjudaView
+        },
+        {
+          path: '/copiar',
+          name: 'copiar',
+          component: CopiarView
         }
       ]
-    },
-    {
-      path: '/utilitarios',
-      component: UtilitariosView,
-      children: [
-        {
-          path: 'cartas',
-          component: CartasUtilsView
-        },
-        {
-          path: 'tabela',
-          component: TabelaUtilsView
-        },
-        {
-          path: 'stocks',
-          component: StocksUtilsView
-        },
-        {
-          path: 'medicacao',
-          component: MedicacaoUtilsView
-        },
-        {
-          path: 'despesas',
-          component: DespesasUtilsView
-        },
-        {
-          path: 'atlas',
-          component: AtlasUtilsView
-        }
-      ]
-    },
-    {
-      path: '/configurar',
-      name: 'configurar',
-      component: ConfigurarView
-    },
-    {
-      path: '/ajuda',
-      name: 'ajuda',
-      component: AjudaView
-    },
-    {
-      path: '/copiar',
-      name: 'copiar',
-      component: CopiarView
     }
   ]
 })

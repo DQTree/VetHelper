@@ -1,4 +1,4 @@
 <template>
-  <div></div>
+  <div>Tabela</div>
 </template>
 <script></script>

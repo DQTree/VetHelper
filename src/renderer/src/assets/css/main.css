@@ -1,70 +1,29 @@
+/* https://colorhunt.co/palette/1d5d9b75c2f6f4d160fbeeac */
+
+:root {
+    --main: #1D5D9B;
+    --main-shadow: #1a5087;
+    --secondary: #F4D160;
+    --accent: #75C2F6;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: auto;
+}
+
 body {
-    height: fit-content;
-    background-color: rgb(180, 180, 180);
-    margin: 0;
+    background-color: var(--accent);
 }
+
 body * {
-    font-family: 'Pixelated MS Sans Serif';
+    font-family: 'Inter', sans-serif;
+    color: white;
+    letter-spacing: 2px;
 }
 
-.cv-main-container{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-}
-
-.cv-main-header {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    background-color: white;
-
-}
-
-.cv-main-body {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-}
-
-.cv-main-top {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.cv-main-bottom {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-}
-
-.cv-main {
-    padding: 16px;
-}
-
-.cv-container {
-    border-color: black;
-    border: outset;
-    padding: 4px;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-    max-width: 384px;
-    margin: 12px;
-}
-
-.cv-button {
-    padding: 16px;
-}
-
-img {
-    max-width: 48px;
-    max-height: 48px;
-}
-
-button {
-    width: 96px;
-    height: 96px;
+#app {
+    height: 100vh;
 }
